@@ -1,0 +1,9 @@
+# Python junk
+__pycache__/
+*.py[cod]
+
+# Database (Optional: Keep this if you want to start fresh online, remove if you want to upload your current data manually)
+# db.sqlite3
+
+# Media (Your uploaded images)
+media/

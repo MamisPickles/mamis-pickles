@@ -1,0 +1,39 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<style>
+    .story-hero { text-align: center; padding: 80px 20px; background-color: #f4ecd8; }
+    .story-hero h1 { font-size: 3rem; color: #1a4d2e; margin-bottom: 20px; }
+    
+    .content-box { max-width: 800px; margin: -50px auto 50px; background: white; padding: 40px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .content-box p { line-height: 1.8; font-size: 1.1rem; color: #555; margin-bottom: 20px; }
+    
+    .signature { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #d4af37; text-align: right; margin-top: 30px; font-style: italic; }
+</style>
+
+<div class="story-hero">
+    <h1>The Tradition</h1>
+</div>
+
+<div class="content-box">
+    <h2 style="color:#1a4d2e;">Not Just a Pickle. An Emotion.</h2>
+    
+    <p>
+        At <strong>Mami's</strong>, we believe that a meal is incomplete without that tiny burst of flavor on the side of your plate. 
+        What started as a small kitchen experiment in Ramanattukara has now grown into a passion project to bring authentic, preservative-free flavors to your dining table.
+    </p>
+
+    <p>
+        <strong>Our Promise:</strong>
+        We don't use factory machines. Every mango is cut by hand, every lemon is sun-dried, and our spices are roasted in small batches to ensure the aroma stays locked in.
+    </p>
+
+    <p>
+        We use only pure Gingelly Oil and high-grade spices. No artificial colors. No dangerous chemicals. Just the taste of home, preserved in a jar.
+    </p>
+
+    <div class="signature">
+        - With Love, Mami.
+    </div>
+</div>
+{% endblock %}
