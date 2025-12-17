@@ -1,45 +1,196 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mami's Premium Pickles</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- GLOBAL STYLES --- */
-        :root { --primary: #1a4d2e; --accent: #d4af37; --bg: #fdfbf7; }
-        
-        body { margin: 0; font-family: 'Lato', sans-serif; background-color: var(--bg); color: #333; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        
-        /* NAVBAR */
-        nav { background-color: var(--primary); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .logo { color: var(--accent); font-size: 1.8rem; font-weight: bold; text-decoration: none; letter-spacing: 2px; }
-        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
+        /* --- THE MASTERPIECE THEME --- */
+        :root {
+            --royal-green: #0B4619; /* The specific dark green you wanted */
+            --royal-gold: #D4AF37;  /* Luxury Gold */
+            --cream-bg: #FDFBF7;
+        }
 
-        /* CONTENT WRAPPER */
-        .main-content { flex: 1; padding-bottom: 50px; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cream-bg);
+            color: #333;
+        }
 
-        /* FOOTER */
-        footer { background-color: #111; color: #888; text-align: center; padding: 20px; margin-top: auto; font-size: 0.9rem; }
-        footer strong { color: var(--accent); }
+        /* --- 1. NAVBAR (Luxury Dark Green) --- */
+        .navbar {
+            background-color: var(--royal-green) !important;
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem; 
+            color: var(--royal-gold) !important;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- 2. SEARCH BAR (Premium Style) --- */
+        .search-box {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            background: rgba(255,255,255,0.1); /* Glass effect */
+            outline: none;
+            color: white;
+            transition: 0.3s;
+        }
+        .search-input::placeholder { color: rgba(255,255,255,0.7); }
+        .search-input:focus {
+            background: white;
+            color: var(--royal-green);
+        }
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--royal-gold);
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            color: var(--royal-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* --- 3. MENU LINKS --- */
+        .nav-link {
+            color: white !important;
+            margin-left: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav-link:hover {
+            color: var(--royal-gold) !important;
+            transform: translateY(-2px);
+        }
+        
+        .cart-icon {
+            border: 1px solid var(--royal-gold);
+            padding: 8px 25px;
+            border-radius: 50px;
+            color: var(--royal-gold) !important;
+        }
+        .cart-icon:hover {
+            background: var(--royal-gold);
+            color: var(--royal-green) !important;
+        }
+
+        /* --- 4. HERO BANNER (The Pattern Design) --- */
+        .jumbotron {
+            /* Your Food Pattern Image */
+            background-image: url('https://img.freepik.com/free-vector/hand-drawn-food-pattern-background_52683-34989.jpg');
+            background-size: cover;
+            background-position: center;
+            
+            /* Overlay to make text readable */
+            box-shadow: inset 0 0 0 1000px rgba(11, 70, 25, 0.85); 
+            
+            color: white;
+            padding: 140px 0;
+            text-align: center;
+            border-bottom: 8px solid var(--royal-gold);
+        }
+
+        .display-4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--royal-gold);
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .lead {
+            font-size: 1.4rem;
+            color: #eee;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- 5. CATEGORY PREVIEW (The 3 Pictures) --- */
+        /* If you wanted 3 pictures in the design, they usually go here */
+        .category-section {
+            padding: 50px 0;
+            text-align: center;
+        }
+        .cat-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+        .cat-card:hover { transform: translateY(-10px); }
+        .cat-img { width: 100%; height: 200px; object-fit: cover; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--royal-green);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 80px;
+            border-top: 5px solid var(--royal-gold);
+        }
     </style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <nav>
-        <a href="{% url 'home' %}" class="logo">MAMI'S</a>
-        
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Shop</a>
-            
-            <a href="{% url 'about' %}">Our Story</a>
-            
-            <a href="{% url 'contact' %}">Contact</a>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">MAMI'S</a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                
+                <form class="mx-auto search-box">
+                    <input type="text" class="search-input" placeholder="Search for premium pickles...">
+                    <button type="button" class="search-btn"><i class="fas fa-search"></i></button>
+                </form>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Story</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link cart-icon" href="#"><i class="fas fa-shopping-bag"></i></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -49,9 +200,16 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 <strong>Mami's Premium Pickles</strong>. Handcrafted in Kerala.</p>
-        <p>Order via WhatsApp</p>
+        <div class="container">
+            <h3 style="color: var(--royal-gold); font-family: 'Playfair Display';">MAMI'S</h3>
+            <p>Authentic Kerala Tradition.</p>
+            <br>
+            <p>&copy; 2025 Mami's Premium Pickles.</p>
+        </div>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

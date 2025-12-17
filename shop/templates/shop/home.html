@@ -2,14 +2,40 @@
 
 {% block content %}
 <style>
-    /* Homepage Specific Styles */
-    .hero { text-align: center; padding: 60px 20px; background: #1a4d2e; color: #d4af37; margin-bottom: 40px; }
-    .hero h1 { font-size: 3.5rem; margin: 0; }
-    .hero p { color: #fff; font-style: italic; margin-top: 10px; font-size: 1.2rem; }
+    /* --- HOMEPAGE SPECIFIC STYLES --- */
     
+    /* 1. HERO BANNER */
+    .hero { 
+        text-align: center; 
+        
+        /* --- CHANGED WIDTH/THICKNESS HERE --- */
+        /* Increased from 30px to 50px so it looks more premium */
+        padding: 50px 20px; 
+        
+        background: #1a4d2e; /* Solid Royal Green */
+        color: #d4af37;      /* Gold Text */
+        margin-bottom: 40px; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .hero h1 { 
+        font-size: 3.2rem; /* Adjusted font size */
+        margin: 0; 
+        font-family: 'Playfair Display', serif; /* Ensures premium font */
+    }
+    
+    .hero p { 
+        color: #fff; 
+        font-style: italic; 
+        margin-top: 10px; 
+        font-size: 1.2rem; 
+    }
+    
+    /* 2. CONTAINER & GRID */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
     
+    /* 3. CARD STYLES */
     .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
     .card:hover { transform: translateY(-5px); }
     .card img { width: 100%; height: 260px; object-fit: cover; border-bottom: 3px solid #d4af37; }
