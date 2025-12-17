@@ -2,26 +2,90 @@
 
 {% block content %}
 <style>
-    .detail-container { max-width: 1000px; margin: 50px auto; display: flex; gap: 50px; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
-    .left { flex: 1; }
-    .left img { width: 100%; border-radius: 8px; }
+    /* --- PAGE LAYOUT --- */
+    .detail-container { 
+        max-width: 1000px; 
+        margin: 50px auto; 
+        display: flex; 
+        gap: 50px; 
+        padding: 20px; 
+        background: white; 
+        border-radius: 12px; 
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05); 
+    }
+    
+    /* --- LEFT SIDE (IMAGES) --- */
+    .left { flex: 1; display: flex; flex-direction: column; align-items: center; }
+    
+    .main-img { 
+        width: 100%; 
+        border-radius: 8px; 
+        object-fit: cover; 
+        border: 1px solid #eee;
+        margin-bottom: 15px; /* Space between big image and thumbnails */
+    }
+
+    /* GALLERY STYLES (NEW) */
+    .gallery {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .thumb {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: 0.3s;
+    }
+    .thumb:hover {
+        opacity: 1;
+        border-color: #d4af37; /* Gold border on hover */
+        transform: scale(1.05);
+    }
+
+    /* --- RIGHT SIDE (INFO) --- */
     .right { flex: 1; display: flex; flex-direction: column; justify-content: center; }
     h1 { color: #1a4d2e; font-size: 2.5rem; margin-bottom: 10px; }
     .price-tag { color: #d4af37; font-size: 2rem; font-weight: bold; margin-bottom: 20px; }
     .desc { font-size: 1.1rem; color: #555; line-height: 1.6; margin-bottom: 30px; }
     
-    /* WHATSAPP BUTTON STYLE */
+    /* WHATSAPP BUTTON */
     .wa-btn { background-color: #25D366; color: white; padding: 15px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
     .wa-btn:hover { background-color: #1ebc57; transform: scale(1.02); }
+
+    /* MOBILE FIX */
+    @media (max-width: 768px) {
+        .detail-container { flex-direction: column; }
+    }
 </style>
 
 <div class="detail-container">
+    
     <div class="left">
+        
         {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <img id="mainImage" src="{{ product.image.url }}" alt="{{ product.name }}" class="main-img">
         {% else %}
-            <div style="height:400px; background:#eee;">No Image</div>
+            <div style="height:400px; background:#eee; width:100%; display:flex; align-items:center; justify-content:center;">No Image</div>
         {% endif %}
+
+        <div class="gallery">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="thumb" onclick="changeImage(this.src)">
+            {% endif %}
+
+            {% for photo in product.images.all %}
+                <img src="{{ photo.image.url }}" class="thumb" onclick="changeImage(this.src)">
+            {% endfor %}
+        </div>
+        
     </div>
 
     <div class="right">
@@ -35,4 +99,11 @@
         </a>
     </div>
 </div>
+
+<script>
+    function changeImage(newSrc) {
+        document.getElementById('mainImage').src = newSrc;
+    }
+</script>
+
 {% endblock %}
