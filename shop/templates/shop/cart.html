@@ -1,0 +1,88 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<style>
+    .cart-container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+    th { color: #1a4d2e; }
+    .total-section { text-align: right; font-size: 1.5rem; color: #1a4d2e; font-weight: bold; margin-bottom: 20px; }
+    
+    .checkout-btn {
+        display: block; width: 100%; text-align: center;
+        background-color: #25D366; color: white; padding: 15px; 
+        border-radius: 50px; font-weight: bold; text-decoration: none; font-size: 1.2rem;
+    }
+    .checkout-btn:hover { background-color: #1ebc57; }
+    
+    .remove-btn { color: red; text-decoration: none; font-size: 0.9rem; }
+    .empty-msg { text-align: center; padding: 50px; color: #777; }
+
+    /* Button Styles for +/- */
+    .qty-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #eee;
+        color: #333;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .qty-btn:hover { background-color: #d4af37; color: white; }
+    .qty-num { margin: 0 10px; font-weight: bold; font-size: 1.1rem; }
+</style>
+
+<div class="cart-container">
+    <h1 style="text-align:center; color:#1a4d2e;">Your Shopping Cart</h1>
+
+    {% if cart.cart %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td>
+                        <img src="{{ item.product.image.url }}" style="width:50px; border-radius:5px; vertical-align:middle;">
+                        {{ item.product.name }}
+                    </td>
+
+                    <td style="min-width: 140px;">
+                        <a href="{% url 'cart_decrement' item.product.id %}" class="qty-btn">-</a>
+                        
+                        <span class="qty-num">{{ item.quantity }}</span>
+                        
+                        <a href="{% url 'cart_increment' item.product.id %}" class="qty-btn" style="background:#1a4d2e; color:white;">+</a>
+                    </td>
+
+                    <td>₹{{ item.total_price }}</td>
+
+                    <td><a href="{% url 'remove_from_cart' item.product.id %}" class="remove-btn">Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="total-section">
+            Total: ₹{{ cart.get_total_price }}
+        </div>
+
+        <a href="https://wa.me/919061699349?text={{ whatsapp_msg }}" target="_blank" class="checkout-btn">
+            Checkout on WhatsApp
+        </a>
+
+    {% else %}
+        <div class="empty-msg">
+            <h2>Your cart is empty!</h2>
+            <a href="{% url 'home' %}" style="color:#1a4d2e; font-weight:bold;">Go back to Shop</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

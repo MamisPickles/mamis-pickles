@@ -5,211 +5,295 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mami's Premium Pickles</title>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- THE MASTERPIECE THEME --- */
-        :root {
-            --royal-green: #0B4619; /* The specific dark green you wanted */
-            --royal-gold: #D4AF37;  /* Luxury Gold */
-            --cream-bg: #FDFBF7;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--cream-bg);
-            color: #333;
-        }
-
-        /* --- 1. NAVBAR (Luxury Dark Green) --- */
-        .navbar {
-            background-color: var(--royal-green) !important;
-            padding: 15px 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-
-        .navbar-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem; 
-            color: var(--royal-gold) !important;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* --- 2. SEARCH BAR (Premium Style) --- */
-        .search-box {
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #f9f9f9; overflow-x: hidden; }
+        
+        /* NAVIGATION BAR */
+        nav { 
+            background:#0e2f1f; 
+            padding: 15px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: relative;
-            max-width: 500px;
-            width: 100%;
+            z-index: 100; 
         }
-        .search-input {
-            width: 100%;
-            padding: 12px 25px;
+        
+        .logo { 
+            font-family: 'Playfair Display', serif; 
+            color: #d4af37; 
+            font-size: 1.8rem; 
+            text-decoration: none; 
+            font-weight: bold;
+        }
+        
+        /* SEARCH BAR */
+        .search-container {
+            background-color: #ffffff;
             border-radius: 50px;
-            border: 2px solid transparent;
-            background: rgba(255,255,255,0.1); /* Glass effect */
-            outline: none;
-            color: white;
-            transition: 0.3s;
-        }
-        .search-input::placeholder { color: rgba(255,255,255,0.7); }
-        .search-input:focus {
-            background: white;
-            color: var(--royal-green);
-        }
-        .search-btn {
-            position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--royal-gold);
-            border: none;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
-            color: var(--royal-green);
+            padding: 5px; 
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
+            width: 400px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        /* --- 3. MENU LINKS --- */
-        .nav-link {
-            color: white !important;
-            margin-left: 25px;
+        .search-input {
+            background: transparent; 
+            border: none;
+            color: #0e2f1f;
+            padding: 0 15px; 
             font-size: 0.95rem;
+            flex-grow: 1; 
+            outline: none;
+            font-family: 'Poppins', sans-serif;
             font-weight: 500;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
-        .nav-link:hover {
-            color: var(--royal-gold) !important;
-            transform: translateY(-2px);
+
+        .search-input::placeholder { color: #888888; }
+
+        .search-button {
+            width: 32px; height: 32px;
+            background-color: #d4af37;
+            border-radius: 50%; border: none;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: transform 0.2s, background-color 0.2s;
         }
+        .search-button svg { width: 16px; height: 16px; fill: #0e2f1f; stroke: #0e2f1f; stroke-width: 0.5px; }
+        .search-button:hover { transform: scale(1.05); background-color: #eac14d; }
         
-        .cart-icon {
-            border: 1px solid var(--royal-gold);
-            padding: 8px 25px;
-            border-radius: 50px;
-            color: var(--royal-gold) !important;
-        }
-        .cart-icon:hover {
-            background: var(--royal-gold);
-            color: var(--royal-green) !important;
-        }
-
-        /* --- 4. HERO BANNER (The Pattern Design) --- */
-        .jumbotron {
-            /* Your Food Pattern Image */
-            background-image: url('https://img.freepik.com/free-vector/hand-drawn-food-pattern-background_52683-34989.jpg');
-            background-size: cover;
-            background-position: center;
-            
-            /* Overlay to make text readable */
-            box-shadow: inset 0 0 0 1000px rgba(11, 70, 25, 0.85); 
-            
-            color: white;
-            padding: 140px 0;
-            text-align: center;
-            border-bottom: 8px solid var(--royal-gold);
-        }
-
-        .display-4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--royal-gold);
-            font-size: 4.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-size: 1rem; transition: 0.3s; }
+        .nav-links a:hover { color: #d4af37; }
         
-        .lead {
-            font-size: 1.4rem;
-            color: #eee;
-            max-width: 700px;
-            margin: 0 auto;
+        .cart-link { background: #d4af37; color: #1a4d2e !important; padding: 8px 15px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+        .cart-link:hover { background: white; color: #1a4d2e !important; }
+
+        /* --- SIDEBAR STYLES --- */
+        .cart-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); z-index: 998;
+            display: none; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .cart-overlay.active { display: block; opacity: 1; }
+
+        .cart-sidebar {
+            position: fixed; top: 0; right: -400px;
+            width: 350px; height: 100%; background: white; z-index: 999;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; flex-direction: column;
+        }
+        .cart-sidebar.active { right: 0; }
+
+        .cart-header {
+            background-color: #0e2f1f; color: white; padding: 20px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .cart-header h3 { margin: 0; font-family: 'Playfair Display', serif; }
+        .close-cart { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+
+        .cart-items { flex-grow: 1; padding: 20px; overflow-y: auto; }
+        .empty-msg { text-align: center; color: #888; margin-top: 50px; }
+        .cart-footer { padding: 20px; border-top: 1px solid #eee; background: #f9f9f9; }
+        
+        .checkout-btn {
+            display: block; width: 100%; padding: 15px;
+            background-color: #d4af37; color: #0e2f1f; text-align: center;
+            text-decoration: none; font-weight: bold; border-radius: 30px;
+            font-size: 1.1rem; transition: 0.3s;
+        }
+        .checkout-btn:hover { background-color: #0e2f1f; color: #d4af37; }
+
+        /* --- QUANTITY CONTROLS (In Sidebar) --- */
+        .qty-controls {
+            display: flex; align-items: center; gap: 8px; margin-top: 5px;
+        }
+        .qty-btn {
+            width: 24px; height: 24px;
+            background: #eee; border: none; border-radius: 50%;
+            font-weight: bold; color: #0e2f1f; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none; font-size: 1.1rem;
+        }
+        .qty-btn:hover { background: #d4af37; color: white; }
+        .remove-btn {
+            color: #e74c3c; font-size: 0.8rem; text-decoration: none; margin-left: auto;
         }
 
-        /* --- 5. CATEGORY PREVIEW (The 3 Pictures) --- */
-        /* If you wanted 3 pictures in the design, they usually go here */
-        .category-section {
-            padding: 50px 0;
-            text-align: center;
+        /* --- NOTIFICATION BOX (BOTTOM RIGHT) --- */
+        .notification-box {
+            position: fixed; 
+            bottom: 30px; /* CHANGED: Now at the bottom */
+            right: -300px;
+            background-color: white; border-left: 4px solid #d4af37;
+            padding: 12px 15px; border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 2000;
+            display: flex; align-items: flex-start; gap: 10px; width: 250px;
+            transition: right 0.5s ease;
         }
-        .cat-card {
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transition: 0.3s;
-            margin-bottom: 20px;
+        .notification-box.show { right: 20px; }
+        
+        .notify-icon {
+            background: #d4af37; color: #0e2f1f; width: 20px; height: 20px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 0.7rem; margin-top: 3px;
         }
-        .cat-card:hover { transform: translateY(-10px); }
-        .cat-img { width: 100%; height: 200px; object-fit: cover; }
+        .notify-content { display: flex; flex-direction: column; flex-grow: 1; }
+        .notify-content h4 { margin: 0; font-size: 0.7rem; color: #888; font-weight: normal; text-transform: uppercase; }
+        .notify-content p { margin: 2px 0 5px 0; font-weight: bold; color: #0e2f1f; font-size: 0.9rem; }
+        
+        .notify-link {
+            font-size: 0.8rem; color: #d4af37; text-decoration: none; font-weight: bold;
+            border-bottom: 1px solid #d4af37; align-self: flex-start; transition: 0.2s;
+        }
+        .notify-link:hover { color: #0e2f1f; border-color: #0e2f1f; }
 
-        /* --- FOOTER --- */
-        footer {
-            background-color: var(--royal-green);
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-            margin-top: 80px;
-            border-top: 5px solid var(--royal-gold);
+        /* Close Button */
+        .notify-close {
+            background: none; border: none; color: #888; font-size: 1.2rem;
+            cursor: pointer; line-height: 0.5; padding: 0; margin-left: 5px;
         }
+        .notify-close:hover { color: #000; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">MAMI'S</a>
+    <div class="cart-overlay" onclick="toggleCart()"></div>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items">
+            {% if cart %}
+                {% for item in cart %}
+                    <div style="display:flex; flex-direction:column; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                        <div style="display:flex; width:100%;">
+                            <div style="width:50px; height:50px; margin-right:10px; flex-shrink:0;">
+                                {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" style="width:100%; height:100%; border-radius:5px; object-fit:cover;">
+                                {% else %}
+                                <div style="width:100%; height:100%; background:#ddd; border-radius:5px;"></div>
+                                {% endif %}
+                            </div>
+                            <div style="flex-grow:1;">
+                                <div style="font-weight:bold; color:#0e2f1f;">{{ item.product.name }}</div>
+                                <div style="font-size:0.9rem; color:#555;">₹{{ item.product.price }}</div>
+                            </div>
+                        </div>
+                        <div class="qty-controls">
+                            <a href="{% url 'cart_decrement' item.product.id %}" class="qty-btn cart-action-btn">-</a>
+                            <span style="font-weight:bold; width:20px; text-align:center;">{{ item.quantity }}</span>
+                            <a href="{% url 'cart_increment' item.product.id %}" class="qty-btn cart-action-btn">+</a>
+                            <a href="{% url 'remove_from_cart' item.product.id %}" class="remove-btn cart-action-btn">Remove</a>
+                        </div>
+                    </div> 
+                {% endfor %}
+            {% else %}
+                <p class="empty-msg">Your cart is currently empty.</p>
+            {% endif %}
+        </div>
+        <div class="cart-footer">
+            <a href="{% url 'cart_detail' %}" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                
-                <form class="mx-auto search-box">
-                    <input type="text" class="search-input" placeholder="Search for premium pickles...">
-                    <button type="button" class="search-btn"><i class="fas fa-search"></i></button>
-                </form>
+    <div id="notifyBox" class="notification-box">
+        <div class="notify-icon">✓</div>
+        <div class="notify-content">
+            <h4>Added to Cart</h4>
+            <p id="notifyProduct">Product Name</p>
+            <a href="{% url 'cart_detail' %}" class="notify-link">Checkout Now &rarr;</a>
+        </div>
+        <button class="notify-close" onclick="closePopup()">×</button>
+    </div>
 
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Shop</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Story</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link cart-icon" href="#"><i class="fas fa-shopping-bag"></i></a>
-                    </li>
-                </ul>
-            </div>
+    <nav>
+        <a href="{% url 'home' %}" class="logo">MAMI'S</a>
+        <div class="search-container">
+            <input type="text" placeholder="Search for premium pickles..." class="search-input">
+            <button type="button" class="search-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.71 20.29l-5.01-5.01C17.54 13.68 18 11.91 18 10c0-4.41-3.59-8-8-8S2 5.59 2 10s3.59 8 8 8c1.91 0 3.68-.46 5.29-1.29l5.01 5.01c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg></button>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="javascript:void(0)" class="cart-link" onclick="toggleCart()">🛒 Cart</a>
         </div>
     </nav>
 
-    <div class="main-content">
-        {% block content %}
-        {% endblock %}
-    </div>
+    {% block content %}
+    {% endblock %}
 
-    <footer>
-        <div class="container">
-            <h3 style="color: var(--royal-gold); font-family: 'Playfair Display';">MAMI'S</h3>
-            <p>Authentic Kerala Tradition.</p>
-            <br>
-            <p>&copy; 2025 Mami's Premium Pickles.</p>
-        </div>
-    </footer>
+    <script>
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.querySelector('.cart-overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+        function closePopup() {
+            document.getElementById('notifyBox').classList.remove('show');
+        }
+
+        document.addEventListener('click', function(e) {
+            // ADD TO CART (Show Popup)
+            if (e.target && e.target.closest('.add-cart-btn')) {
+                localStorage.setItem('scrollpos', window.scrollY);
+                
+                let btn = e.target.closest('.add-cart-btn');
+                let card = btn.closest('.card');
+                let productName = "Item"; 
+                if (card) {
+                    let title = card.querySelector('h3');
+                    if (title) productName = title.innerText;
+                }
+                localStorage.setItem('addedProduct', productName);
+                localStorage.setItem('showPopup', 'true');
+            }
+
+            // SIDEBAR CONTROLS (Keep Sidebar Open)
+            if (e.target && e.target.closest('.cart-action-btn')) {
+                localStorage.setItem('scrollpos', window.scrollY);
+                localStorage.setItem('openCartAfterReload', 'true');
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function(event) { 
+            // Restore Scroll
+            var scrollpos = localStorage.getItem('scrollpos');
+            if (scrollpos) {
+                window.scrollTo(0, scrollpos);
+                localStorage.removeItem('scrollpos');
+            }
+
+            // POPUP LOGIC (Bottom Right, Manual Close)
+            var shouldShow = localStorage.getItem('showPopup');
+            var productName = localStorage.getItem('addedProduct');
+            if (shouldShow && productName) {
+                document.getElementById('notifyProduct').innerText = productName;
+                let box = document.getElementById('notifyBox');
+                box.classList.add('show');
+                // No timeout - stays until clicked
+                
+                localStorage.removeItem('showPopup');
+                localStorage.removeItem('addedProduct');
+            }
+
+            // SIDEBAR LOGIC
+            var shouldOpenCart = localStorage.getItem('openCartAfterReload');
+            if (shouldOpenCart) {
+                toggleCart();
+                localStorage.removeItem('openCartAfterReload');
+            }
+        });
+    </script>
 
 </body>
 </html>
