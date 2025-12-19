@@ -2,68 +2,31 @@
 
 {% block content %}
 <style>
-    /* --- HOMEPAGE SPECIFIC STYLES --- */
-    
-    /* 1. HERO BANNER */
+    /* HERO SECTION */
     .hero { 
-        text-align: center; 
-        /* Increased from 30px to 50px so it looks more premium */
-        padding: 50px 20px; 
-        background: #1a4d2e; /* Solid Royal Green */
-        color: #d4af37;      /* Gold Text */
-        margin-bottom: 40px; 
+        text-align: center; padding: 50px 20px; 
+        background: #1a4d2e; color: #d4af37; margin-bottom: 40px; 
         box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+    .hero h1 { font-size: 3rem; margin: 0; font-family: 'Playfair Display', serif; }
+    .hero p { color: #fff; font-style: italic; margin-top: 10px; font-size: 1.1rem; }
     
-    .hero h1 { 
-        font-size: 3.2rem; /* Adjusted font size */
-        margin: 0; 
-        font-family: 'Playfair Display', serif; /* Ensures premium font */
-    }
-    
-    .hero p { 
-        color: #fff; 
-        font-style: italic; 
-        margin-top: 10px; 
-        font-size: 1.2rem; 
-    }
-    
-    /* 2. CONTAINER & GRID */
+    /* PRODUCT GRID */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
     
-    /* 3. CARD STYLES */
+    /* CARD DESIGN */
     .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
     .card:hover { transform: translateY(-5px); }
     .card img { width: 100%; height: 260px; object-fit: cover; border-bottom: 3px solid #d4af37; }
     .card-details { padding: 20px; text-align: center; }
     .price { color: #d4af37; font-size: 1.3rem; font-weight: bold; display: block; margin: 10px 0; }
     
-    /* Button Styles */
+    /* BUTTONS */
     .btn-group { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
-    
-    .btn { 
-        padding: 10px 20px; 
-        text-decoration: none; 
-        border-radius: 20px; 
-        font-size: 0.9rem;
-        font-weight: bold;
-        transition: 0.3s;
-    }
-
-    .btn-primary {
-        background-color: #1a4d2e; 
-        color: white; 
-    }
-    .btn-primary:hover { background-color: #143d24; }
-
-    .btn-outline {
-        background-color: transparent;
-        color: #1a4d2e;
-        border: 1px solid #1a4d2e;
-    }
-    .btn-outline:hover { background-color: #1a4d2e; color: white; }
-
+    .btn { padding: 10px 20px; text-decoration: none; border-radius: 20px; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
+    .btn-primary { background-color: #1a4d2e; color: white; }
+    .btn-outline { background-color: transparent; color: #1a4d2e; border: 1px solid #1a4d2e; }
 </style>
 
 <div class="hero">
@@ -88,7 +51,8 @@
                 
                 <div class="btn-group">
                     <a href="{% url 'detail' product.id %}" class="btn btn-outline">View</a>
-              <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary add-cart-btn">Add to Cart</a>
+                    
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary add-cart-btn">Add to Cart</a>
                 </div>
             </div>
         </div>
@@ -96,4 +60,5 @@
     </div>
 </div>
 
-<div style="height: 100px;"></div> {% endblock %}
+<div style="height: 100px;"></div>
+{% endblock %}
