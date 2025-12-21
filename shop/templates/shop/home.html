@@ -2,69 +2,69 @@
 
 {% block content %}
 <style>
-    /* HERO SECTION */
-    .hero {
-        background: #1a4d2e; color: #d4af37; text-align: center;
-        padding: 40px 20px; margin-bottom: 20px;
-    }
+    /* HERO */
+    .hero { background: #1a4d2e; color: #d4af37; text-align: center; padding: 40px 20px; margin-bottom: 20px; }
     .hero h1 { margin: 0; font-family: 'Playfair Display', serif; font-size: 2.5rem; }
     
-    /* GRID CONTAINER */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-    
-    .product-grid {
-        display: grid;
-        /* DESKTOP: 4 items per row */
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-        gap: 30px;
-        padding-bottom: 50px;
+    /* MOBILE SEARCH (Visible only on phones) */
+    .mobile-search { display: none; margin-top: 20px; }
+    .mobile-search input { padding: 10px; width: 70%; border-radius: 20px 0 0 20px; border: none; outline: none; }
+    .mobile-search button { padding: 10px 15px; border-radius: 0 20px 20px 0; border: none; background: #d4af37; color: #0e2f1f; font-weight: bold; }
+
+    @media (max-width: 900px) {
+        .mobile-search { display: flex; justify-content: center; }
     }
 
-    /* CARD STYLES */
-    .card {
-        background: white; border-radius: 8px; overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s;
-        display: flex; flex-direction: column;
-    }
+    /* GRID */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px; padding-bottom: 50px; }
+
+    /* CARD */
+    .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; flex-direction: column; transition: transform 0.2s; }
     .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
     
-    .card-img-wrap { width: 100%; aspect-ratio: 1/1; /* Keeps image square */ background: #eee; }
+    .card-img-wrap { width: 100%; aspect-ratio: 1/1; background: #eee; }
     .card-img { width: 100%; height: 100%; object-fit: cover; }
     
     .card-body { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
     .card-title { font-size: 1.1rem; font-weight: 600; color: #0e2f1f; margin: 0 0 5px 0; }
-    .card-price { color: #d4af37; font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 10px; }
+    .card-price { color: #d4af37; font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 15px; }
 
-    .btn-cart {
-        background: #0e2f1f; color: white; text-decoration: none;
-        padding: 8px 0; border-radius: 20px; font-size: 0.9rem;
-        display: block; width: 100%; transition: 0.2s;
-    }
-    .btn-cart:hover { background: #1a4d2e; }
+    /* BUTTON GROUP */
+    .btn-group { display: flex; gap: 8px; }
+    
+    .btn-view { flex: 1; background: transparent; border: 1px solid #0e2f1f; color: #0e2f1f; text-decoration: none; padding: 8px 0; border-radius: 20px; font-size: 0.85rem; font-weight: bold; transition: 0.2s; }
+    .btn-view:hover { background: #0e2f1f; color: white; }
 
-    /* --- MOBILE SPECIFIC (2 COLUMNS) --- */
+    .btn-add { flex: 1.5; background: #0e2f1f; color: white; text-decoration: none; padding: 8px 0; border-radius: 20px; font-size: 0.85rem; font-weight: bold; transition: 0.2s; }
+    .btn-add:hover { background: #1a4d2e; }
+
+    /* MOBILE 2-COLUMN GRID */
     @media (max-width: 600px) {
-        .product-grid {
-            grid-template-columns: 1fr 1fr; /* Force 2 columns */
-            gap: 15px; /* Smaller gap */
-        }
-        
+        .product-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
         .card-body { padding: 10px; }
         .card-title { font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .card-price { font-size: 0.95rem; margin-bottom: 8px; }
-        
-        .btn-cart {
-            font-size: 0.8rem; padding: 6px 0;
-        }
+        .btn-group { flex-direction: row; gap: 5px; }
+        .btn-view, .btn-add { font-size: 0.75rem; padding: 6px 0; }
     }
 </style>
 
 <div class="hero">
     <h1>MAMI'S</h1>
     <p>Premium Homemade Pickles</p>
+    
+    <form action="{% url 'home' %}" method="get" class="mobile-search">
+        <input type="text" name="q" placeholder="Search pickles..." value="{{ request.GET.q|default:'' }}">
+        <button type="submit">Search</button>
+    </form>
 </div>
 
 <div class="container">
+    {% if request.GET.q %}
+        <h3 style="color:#0e2f1f; margin-bottom:20px;">Search results for "{{ request.GET.q }}"</h3>
+    {% endif %}
+
     <div class="product-grid">
         {% for product in products %}
         <div class="card">
@@ -81,7 +81,11 @@
                     <h3 class="card-title">{{ product.name }}</h3>
                     <span class="card-price">₹{{ product.price }}</span>
                 </div>
-                <a href="{% url 'add_to_cart' product.id %}" class="btn-cart add-cart-btn">Add +</a>
+                
+                <div class="btn-group">
+                    <a href="{% url 'detail' product.id %}" class="btn-view">View</a>
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn-add add-cart-btn">Add +</a>
+                </div>
             </div>
         </div>
         {% endfor %}

@@ -8,52 +8,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     
     <style>
-        /* --- GLOBAL RESET --- */
+        /* RESET */
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding-top: 70px; /* Space for fixed nav */ }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background-color: #f8f9fa; padding-top: 70px; }
         
-        /* --- STICKY NAVIGATION BAR --- */
+        /* STICKY NAV */
         nav { 
-            background: #0e2f1f; 
-            padding: 10px 20px; 
+            background: #0e2f1f; padding: 10px 20px; 
             display: flex; align-items: center; justify-content: space-between;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
         }
+        .logo { font-family: 'Playfair Display', serif; color: #d4af37; font-size: 1.6rem; text-decoration: none; font-weight: bold; }
         
-        .logo { 
-            font-family: 'Playfair Display', serif; color: #d4af37; 
-            font-size: 1.6rem; text-decoration: none; font-weight: bold; 
-        }
-        
-        /* DESKTOP SEARCH */
-        .search-container {
+        /* SEARCH BAR (Now a Form) */
+        .search-form {
             background: white; border-radius: 50px; padding: 4px 15px; 
             display: flex; align-items: center; width: 400px;
         }
         .search-input { border: none; outline: none; flex-grow: 1; font-family: inherit; }
         .search-btn { background: none; border: none; cursor: pointer; color: #0e2f1f; }
 
-        /* NAV LINKS */
+        /* LINKS & CART */
         .nav-links { display: flex; align-items: center; gap: 20px; }
         .nav-links a { color: white; text-decoration: none; transition: 0.3s; }
-        
-        /* CART BUTTON (Fixed) */
         .cart-btn-nav {
-            background: #d4af37; color: #0e2f1f; border: none;
-            padding: 8px 16px; border-radius: 20px; font-weight: bold;
-            cursor: pointer; font-family: inherit; font-size: 0.9rem;
-            display: flex; align-items: center; gap: 5px;
-        }
-        
-        /* --- MOBILE OPTIMIZATIONS (Max Width 900px) --- */
-        @media (max-width: 900px) {
-            nav { padding: 10px 15px; }
-            .nav-links a:not(.cart-btn-nav) { display: none; } /* Hide Home/About on phone */
-            .search-container { display: none; } /* Hide Search on phone header to save space */
+            background: #d4af37; color: #0e2f1f; border: none; padding: 8px 16px; 
+            border-radius: 20px; font-weight: bold; cursor: pointer; font-family: inherit; 
+            font-size: 0.9rem; display: flex; align-items: center; gap: 5px;
         }
 
-        /* --- SIDEBAR CART --- */
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 900px) {
+            nav { padding: 10px 15px; }
+            .nav-links a:not(.cart-btn-nav) { display: none; }
+            .search-form { display: none; } /* Hide Navbar Search on Mobile (Use Hero Search instead) */
+        }
+
+        /* SIDEBAR CART */
         .cart-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1001; display: none; }
         .cart-overlay.active { display: block; }
 
@@ -68,8 +60,7 @@
         .cart-header { background: #0e2f1f; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
         .cart-items { flex-grow: 1; padding: 15px; overflow-y: auto; }
         .cart-footer { padding: 15px; background: #f1f1f1; border-top: 1px solid #ddd; }
-
-        /* Sidebar Item Style */
+        
         .sb-item { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         .sb-img { width: 60px; height: 60px; border-radius: 5px; object-fit: cover; background: #ddd; }
         .sb-details { flex-grow: 1; }
@@ -78,15 +69,13 @@
         .qty-btn { width: 24px; height: 24px; background: #eee; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; text-decoration: none; color: black; }
         .rm-btn { color: #e74c3c; font-size: 0.75rem; margin-left: auto; text-decoration: none; }
 
-        /* CHECKOUT BUTTON */
         .checkout-btn {
             display: block; width: 100%; padding: 12px;
-            background: #25D366; /* WhatsApp Green */
-            color: white; text-align: center; text-decoration: none;
+            background: #25D366; color: white; text-align: center; text-decoration: none;
             font-weight: bold; border-radius: 8px; font-size: 1rem;
         }
 
-        /* --- POPUP NOTIFICATION --- */
+        /* POPUP */
         .notify-box {
             position: fixed; bottom: 20px; right: -300px; width: 260px;
             background: white; border-left: 5px solid #d4af37;
@@ -105,7 +94,6 @@
             <h3 style="margin:0;">My Cart</h3>
             <button onclick="toggleCart()" style="background:none; border:none; color:white; font-size:1.5rem;">×</button>
         </div>
-        
         <div class="cart-items">
             {% if cart %}
                 {% for item in cart %}
@@ -131,17 +119,14 @@
                 <p style="text-align:center; color:#888; margin-top:40px;">Cart is empty.</p>
             {% endif %}
         </div>
-
         <div class="cart-footer">
-            <a href="javascript:void(0)" onclick="checkoutWhatsApp()" class="checkout-btn">
-                Checkout via WhatsApp
-            </a>
+            <a href="javascript:void(0)" onclick="checkoutWhatsApp()" class="checkout-btn">Checkout via WhatsApp</a>
         </div>
     </div>
 
     <div id="notifyBox" class="notify-box">
         <div style="font-weight:bold; color:#0e2f1f; margin-bottom:5px;">Item Added!</div>
-        <div id="notifyText" style="font-size:0.9rem; color:#555;">Product Name</div>
+        <div id="notifyText" style="font-size:0.9rem; color:#555;">Product</div>
         <div style="margin-top:8px; text-align:right;">
             <button onclick="toggleCart()" style="background:none; border:none; color:#d4af37; font-weight:bold;">View Cart &rarr;</button>
         </div>
@@ -150,75 +135,61 @@
     <nav>
         <a href="{% url 'home' %}" class="logo">MAMI'S</a>
         
-        <div class="search-container">
-            <input type="text" placeholder="Search pickles..." class="search-input">
-            <button class="search-btn">🔍</button>
-        </div>
+        <form action="{% url 'home' %}" method="get" class="search-form">
+            <input type="text" name="q" placeholder="Search pickles..." class="search-input" value="{{ request.GET.q|default:'' }}">
+            <button type="submit" class="search-btn">🔍</button>
+        </form>
 
         <div class="nav-links">
             <a href="{% url 'home' %}">Home</a>
             <a href="{% url 'about' %}">About</a>
-            <button class="cart-btn-nav" onclick="toggleCart()">
-                🛒 <span id="cartCount">Cart</span>
-            </button>
+            <button class="cart-btn-nav" onclick="toggleCart()">🛒 Cart</button>
         </div>
     </nav>
 
     {% block content %}{% endblock %}
 
     <script>
-        // 1. TOGGLE CART
         function toggleCart() {
             document.getElementById('cartSidebar').classList.toggle('active');
             document.querySelector('.cart-overlay').classList.toggle('active');
         }
 
-        // 2. WHATSAPP CHECKOUT LOGIC
         function checkoutWhatsApp() {
-            // Get all cart items from the DOM
             let items = document.querySelectorAll('.sb-item');
-            if (items.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
+            if (items.length === 0) { alert("Your cart is empty!"); return; }
 
-            let message = "Hello Mami's Pickles! I would like to order:%0a"; // %0a is a new line
+            let message = "Hello Mami's Pickles! I would like to order:%0a";
             let total = 0;
 
             items.forEach((item, index) => {
                 let name = item.querySelector('.sb-title').innerText;
-                let priceText = item.querySelector('div[style*="font-size:0.85rem"]').innerText; // ₹150
+                let priceText = item.querySelector('div[style*="font-size:0.85rem"]').innerText;
                 let price = parseInt(priceText.replace('₹', ''));
                 let qty = parseInt(item.querySelector('span').innerText);
-                
                 message += `${index + 1}. ${name} (x${qty}) - ₹${price * qty}%0a`;
                 total += price * qty;
             });
 
             message += `%0a*Total Amount: ₹${total}*`;
-            
-            // OPEN WHATSAPP (Replace 919876543210 with your number)
+            // REPLACE WITH YOUR NUMBER
             let phoneNumber = "919061699349"; 
             window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
         }
 
-        // 3. EVENT LISTENER FOR POPUPS & RELOADS
         document.addEventListener('click', function(e) {
-            // Add to Cart
             if (e.target && e.target.closest('.add-cart-btn')) {
                 localStorage.setItem('scrollpos', window.scrollY);
                 let name = e.target.closest('.card').querySelector('.card-title').innerText;
                 localStorage.setItem('addedProduct', name);
                 localStorage.setItem('showPopup', 'true');
             }
-            // Sidebar Actions (+ / -)
             if (e.target && e.target.classList.contains('js-action')) {
                 localStorage.setItem('scrollpos', window.scrollY);
                 localStorage.setItem('openCart', 'true');
             }
         });
 
-        // 4. ON LOAD RESTORE STATE
         document.addEventListener("DOMContentLoaded", function() {
             if(localStorage.getItem('scrollpos')) {
                 window.scrollTo(0, localStorage.getItem('scrollpos'));
