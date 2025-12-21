@@ -3,62 +3,88 @@
 {% block content %}
 <style>
     /* HERO SECTION */
-    .hero { 
-        text-align: center; padding: 50px 20px; 
-        background: #1a4d2e; color: #d4af37; margin-bottom: 40px; 
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    .hero {
+        background: #1a4d2e; color: #d4af37; text-align: center;
+        padding: 40px 20px; margin-bottom: 20px;
     }
-    .hero h1 { font-size: 3rem; margin: 0; font-family: 'Playfair Display', serif; }
-    .hero p { color: #fff; font-style: italic; margin-top: 10px; font-size: 1.1rem; }
+    .hero h1 { margin: 0; font-family: 'Playfair Display', serif; font-size: 2.5rem; }
     
-    /* PRODUCT GRID */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+    /* GRID CONTAINER */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
     
-    /* CARD DESIGN */
-    .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
-    .card:hover { transform: translateY(-5px); }
-    .card img { width: 100%; height: 260px; object-fit: cover; border-bottom: 3px solid #d4af37; }
-    .card-details { padding: 20px; text-align: center; }
-    .price { color: #d4af37; font-size: 1.3rem; font-weight: bold; display: block; margin: 10px 0; }
+    .product-grid {
+        display: grid;
+        /* DESKTOP: 4 items per row */
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+        gap: 30px;
+        padding-bottom: 50px;
+    }
+
+    /* CARD STYLES */
+    .card {
+        background: white; border-radius: 8px; overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s;
+        display: flex; flex-direction: column;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
     
-    /* BUTTONS */
-    .btn-group { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
-    .btn { padding: 10px 20px; text-decoration: none; border-radius: 20px; font-size: 0.9rem; font-weight: bold; transition: 0.3s; }
-    .btn-primary { background-color: #1a4d2e; color: white; }
-    .btn-outline { background-color: transparent; color: #1a4d2e; border: 1px solid #1a4d2e; }
+    .card-img-wrap { width: 100%; aspect-ratio: 1/1; /* Keeps image square */ background: #eee; }
+    .card-img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .card-body { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .card-title { font-size: 1.1rem; font-weight: 600; color: #0e2f1f; margin: 0 0 5px 0; }
+    .card-price { color: #d4af37; font-weight: bold; font-size: 1.1rem; display: block; margin-bottom: 10px; }
+
+    .btn-cart {
+        background: #0e2f1f; color: white; text-decoration: none;
+        padding: 8px 0; border-radius: 20px; font-size: 0.9rem;
+        display: block; width: 100%; transition: 0.2s;
+    }
+    .btn-cart:hover { background: #1a4d2e; }
+
+    /* --- MOBILE SPECIFIC (2 COLUMNS) --- */
+    @media (max-width: 600px) {
+        .product-grid {
+            grid-template-columns: 1fr 1fr; /* Force 2 columns */
+            gap: 15px; /* Smaller gap */
+        }
+        
+        .card-body { padding: 10px; }
+        .card-title { font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .card-price { font-size: 0.95rem; margin-bottom: 8px; }
+        
+        .btn-cart {
+            font-size: 0.8rem; padding: 6px 0;
+        }
+    }
 </style>
 
 <div class="hero">
     <h1>MAMI'S</h1>
-    <p>The Essence of Tradition. The Taste of Home.</p>
+    <p>Premium Homemade Pickles</p>
 </div>
 
 <div class="container">
-    <h2 style="text-align:center; color:#1a4d2e; margin-bottom:30px;">Our Premium Selection</h2>
-    <div class="grid">
+    <div class="product-grid">
         {% for product in products %}
         <div class="card">
-            {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            {% else %}
-                <div style="height:260px; background:#eee;"></div>
-            {% endif %}
+            <div class="card-img-wrap">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img">
+                {% else %}
+                    <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#ccc;">No Img</div>
+                {% endif %}
+            </div>
             
-            <div class="card-details">
-                <h3><a href="{% url 'detail' product.id %}" style="text-decoration:none; color:#1a4d2e;">{{ product.name }}</a></h3>
-                <span class="price">₹{{ product.price }}</span>
-                
-                <div class="btn-group">
-                    <a href="{% url 'detail' product.id %}" class="btn btn-outline">View</a>
-                    
-                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary add-cart-btn">Add to Cart</a>
+            <div class="card-body">
+                <div>
+                    <h3 class="card-title">{{ product.name }}</h3>
+                    <span class="card-price">₹{{ product.price }}</span>
                 </div>
+                <a href="{% url 'add_to_cart' product.id %}" class="btn-cart add-cart-btn">Add +</a>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
-
-<div style="height: 100px;"></div>
 {% endblock %}
